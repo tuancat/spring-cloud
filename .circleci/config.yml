@@ -16,6 +16,15 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - run: echo world
+  my_job:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: exit 1
+      - run:
+          name: on error
+          command: echo "Hello Error!"
+          when: on_fail
 workflows:
   # Name the workflow "welcome"
   welcome:
@@ -26,3 +35,5 @@ workflows:
       - print_world:
           requires:
             - print_hello
+      - my_job
+      
